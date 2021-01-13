@@ -26,6 +26,14 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - id: "add-pip-path"
+      name: "Add PIP install folder to path"
+      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      shell: bash
+    - id: "add-mongodb-binary-path"
+      name: "Add PIP install folder to path"
+      run: echo "${{ github.action_path }}/mongodb/bin" >> $GITHUB_PATH
+      shell: bash
     - id: "run-orchestration"
       name: "Download MongoDB"
       run: ${{ github.action_path }}/.evergreen/run-orchestration.sh
