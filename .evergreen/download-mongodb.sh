@@ -378,8 +378,9 @@ download_and_extract ()
    MONGODB_DOWNLOAD_URL=$1
    EXTRACT=$2
 
+   echo "Downloading MongoDB from $MONGODB_DOWNLOAD_URL"
    cd $DRIVERS_TOOLS
-   curl --retry 8 -sS $MONGODB_DOWNLOAD_URL --max-time 300 --output mongodb-binaries.tgz
+   curl -sS $MONGODB_DOWNLOAD_URL --max-time 300 --output mongodb-binaries.tgz
    $EXTRACT mongodb-binaries.tgz
 
    rm -f mongodb-binaries.tgz

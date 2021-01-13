@@ -30,6 +30,7 @@ runs:
       name: "Download MongoDB"
       run: ${{ github.action_path }}/.evergreen/run-orchestration.sh
       env:
+        DRIVERS_TOOLS: ${{ github.action_path }}
         MONGO_ORCHESTRATION_HOME: ${{ github.action_path }}/.evergreen/.evergreen/orchestration
         MONGODB_VERSION: ${{ inputs.version }}
         TOPOLOGY: ${{ inputs.topology }}
