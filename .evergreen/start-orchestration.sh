@@ -38,6 +38,9 @@ elif $PYTHON -m virtualenv --system-site-packages --never-download venv || virtu
   elif [ -f venv/Scripts/activate ]; then
     . venv/Scripts/activate
   fi
+else
+  # Set an install path when running on GitHub actions (no virtualenv)
+  export MO_INSTALL_PATH=/home/$(whoami)/.local/bin/
 fi
 
 # Install from github to get the latest mongo-orchestration.
@@ -64,7 +67,7 @@ else
   fi
 fi
 
-mongo-orchestration $ORCHESTRATION_ARGUMENTS start > $MONGO_ORCHESTRATION_HOME/out.log 2>&1 < /dev/null &
+${MO_INSTALL_PATH}mongo-orchestration $ORCHESTRATION_ARGUMENTS start > $MONGO_ORCHESTRATION_HOME/out.log 2>&1 < /dev/null &
 
 ls -la $MONGO_ORCHESTRATION_HOME
 
