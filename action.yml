@@ -31,6 +31,7 @@ runs:
       run: ${{ github.action_path }}/.evergreen/run-orchestration.sh
       env:
         DRIVERS_TOOLS: ${{ github.action_path }}
+        MONGODB_BINARIES: ${{ github.action_path }}/mongodb/bin
         MONGO_ORCHESTRATION_HOME: ${{ github.action_path }}/.evergreen/orchestration
         MONGODB_VERSION: ${{ inputs.version }}
         TOPOLOGY: ${{ inputs.topology }}

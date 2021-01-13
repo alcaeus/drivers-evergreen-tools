@@ -48,6 +48,11 @@ pip install --upgrade 'git+git://github.com/mongodb/mongo-orchestration@master'
 pip list
 cd -
 
+# Create default config file if it doesn't exist
+if [ ! -f $MONGO_ORCHESTRATION_HOME/orchestration.config ]; then
+  echo "{ \"releases\": { \"default\": \"$MONGODB_BINARIES\" }}" > $MONGO_ORCHESTRATION_HOME/orchestration.config
+fi
+
 ORCHESTRATION_ARGUMENTS="-e default -f $MONGO_ORCHESTRATION_HOME/orchestration.config --socket-timeout-ms=60000 --bind=127.0.0.1 --enable-majority-read-concern"
 if [ "Windows_NT" = "$OS" ]; then # Magic variable in cygwin
   ORCHESTRATION_ARGUMENTS="$ORCHESTRATION_ARGUMENTS -s wsgiref"
