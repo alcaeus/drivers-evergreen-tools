@@ -42,5 +42,5 @@ runs:
       shell: sh
     - id: "get-cluster-uri"
       name: "Expose Cluster URI"
-      run: echo "::set-output name=cluster-uri::$(cat uri.txt)"
+      run: echo "::set-output name=cluster-uri::$(cat ${{ github.action_path }}/uri.txt)"
       shell: bash
