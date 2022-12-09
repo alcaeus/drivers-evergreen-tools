@@ -55,7 +55,7 @@ get_mongodb_download_url_for ()
    # Set VERSION_RAPID to the latest rapid release each quarter.
    VERSION_RAPID="6.1.0"
    VERSION_60_LATEST="v6.0-latest"
-   VERSION_60="6.0.2"
+   VERSION_60="6.0.3"
    VERSION_50="5.0.13"
    VERSION_44="4.4.17"
    VERSION_42="4.2.23"
@@ -309,6 +309,18 @@ get_mongodb_download_url_for ()
              MONGODB_60="http://downloads.10gen.com/linux/mongodb-linux-x86_64-enterprise-debian11-${VERSION_60}.tgz"
              MONGODB_50="http://downloads.10gen.com/linux/mongodb-linux-x86_64-enterprise-debian11-${VERSION_50}.tgz"
              # SERVER-62299 Added support for Debian 11 in 5.0.8 and 6.0.0-rc0
+      ;;
+      linux-ubuntu-22.04-aarch64)
+         MONGODB_LATEST="http://downloads.10gen.com/linux/mongodb-linux-aarch64-enterprise-ubuntu2204-latest.tgz"
+             MONGODB_RAPID="http://downloads.10gen.com/linux/mongodb-linux-aarch64-enterprise-ubuntu2204-${VERSION_RAPID}.tgz"
+             MONGODB_60_LATEST="http://downloads.10gen.com/linux/mongodb-linux-aarch64-enterprise-ubuntu2204-${VERSION_60_LATEST}.tgz"
+             MONGODB_60="http://downloads.10gen.com/linux/mongodb-linux-aarch64-enterprise-ubuntu2204-${VERSION_60}.tgz"
+      ;;
+      linux-ubuntu-22.04*)
+         MONGODB_LATEST="http://downloads.10gen.com/linux/mongodb-linux-x86_64-enterprise-ubuntu2204-latest.tgz"
+             MONGODB_RAPID="http://downloads.10gen.com/linux/mongodb-linux-x86_64-enterprise-ubuntu2204-${VERSION_RAPID}.tgz"
+             MONGODB_60_LATEST="http://downloads.10gen.com/linux/mongodb-linux-x86_64-enterprise-ubuntu2204-${VERSION_60_LATEST}.tgz"
+             MONGODB_60="http://downloads.10gen.com/linux/mongodb-linux-x86_64-enterprise-ubuntu2204-${VERSION_60}.tgz"
       ;;
       linux-ubuntu-20.04-aarch64)
          MONGODB_LATEST="http://downloads.10gen.com/linux/mongodb-linux-aarch64-enterprise-ubuntu2004-latest.tgz"
