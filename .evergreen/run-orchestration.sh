@@ -143,5 +143,5 @@ EOT
 
 # Set the requireApiVersion parameter
 if [ ! -z "$REQUIRE_API_VERSION" ]; then
-  mongo $URI $MONGO_ORCHESTRATION_HOME/require-api-version.js
+  mongosh $URI $MONGO_ORCHESTRATION_HOME/require-api-version.js
 fi
