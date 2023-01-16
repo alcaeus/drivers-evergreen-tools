@@ -1,3 +1,14 @@
+function _isWindows() {
+    return process.platform === 'win32';
+}
+
+function cat(filename, useBinaryMode) {
+    let contents = fs.readFileSync(filename, 'utf8');
+    if (!useBinaryMode && _isWindows()) {
+        contents = contents.replace(/(?<!\r)\n/g, '\r\n');
+    }
+    return contents;
+}
 
 function readSetupJson() {
     let result;
@@ -36,4 +47,12 @@ function getPython3Binary() {
     }
 
     return "python3";
+}
+
+function jsTestLog(msg) {
+    if (typeof msg === "object") {
+        msg = tojson(msg);
+    }
+    const msgs = ["----", ...msg.split("\n"), "----"].map(s => `[jsTest] ${s}`);
+    print(`\n\n${msgs.join("\n")}\n\n`);
 }
