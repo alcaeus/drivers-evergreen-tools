@@ -1,15 +1,3 @@
-function _isWindows() {
-    return process.platform === 'win32';
-}
-
-function cat(filename, useBinaryMode) {
-    let contents = fs.readFileSync(filename, 'utf8');
-    if (!useBinaryMode && _isWindows()) {
-        contents = contents.replace(/(?<!\r)\n/g, '\r\n');
-    }
-    return contents;
-}
-
 function readSetupJson() {
     let result;
     try {

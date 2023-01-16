@@ -616,6 +616,8 @@ download_and_extract_mongosh ()
    chmod -R +x mongodb/bin
    echo "MongoDB shell installed. Version:"
    ./mongodb/bin/mongosh --version
+   echo "Installing mongocompat snippet for compatibility with legacy shell"
+   ./mongodb/bin/mongosh --nodb --eval "snippet install mongocompat"
    cd -
 }
 
