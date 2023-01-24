@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+MONGODB_VERSION=${MONGODB_VERSION:-latest}
+
 if [ -z "$BASH" ]; then
   echo "create-instance.sh must be run in a Bash shell!" 1>&2
   exit 1
@@ -120,7 +122,7 @@ EOF
 
         if [ "$SERVERLESS_SKIP_CRYPT" != "OFF" ]; then
           # Download binaries and crypt_shared
-          MONGODB_VERSION=rapid sh $DIR/download-crypt.sh
+          MONGODB_VERSION=${MONGODB_VERSION} sh $DIR/download-crypt.sh
         fi
 
         exit 0
