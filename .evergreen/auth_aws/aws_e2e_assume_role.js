@@ -22,8 +22,7 @@ function getAssumeCredentials() {
     const python_command = getPython3Binary() +
         ` -u lib/aws_assume_role.py --role_name=${role_name} > creds.json`;
 
-    const ret = runShellCmdWithEnv(python_command, env);
-    assert(ret == 0);
+    child_process.execSync(python_command, {env});
 
     const result = cat("creds.json");
     try {
@@ -34,15 +33,13 @@ function getAssumeCredentials() {
     }
 }
 
-const credentials = getAssumeCredentials();
 const admin = Mongo().getDB("admin");
 const external = admin.getMongo().getDB("$external");
-
 assert(admin.auth("bob", "pwd123"));
-external.runCommand({createUser: ASSUMED_ROLE, roles:[{role: 'read', db: "aws"}]});
+external.runCommand({createUser: ASSUMED_ROLE, roles: [{role: 'read', db: "aws"}]});
 
-const testConn = new Mongo();
-const testExternal = testConn.getDB('$external');
+const credentials = getAssumeCredentials();
+const testExternal = Mongo().getDB('$external');
 assert(testExternal.auth({
     user: credentials["AccessKeyId"],
     pwd: credentials["SecretAccessKey"],
