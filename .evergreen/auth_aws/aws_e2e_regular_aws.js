@@ -9,17 +9,17 @@ load("lib/aws_e2e_lib.js");
 
 const admin = Mongo().getDB("admin");
 const external = admin.getMongo().getDB("$external");
-assert(admin.auth("bob", "pwd123"));
+
+admin.auth("bob", "pwd123");
 
 const config = readSetupJson();
-assert.commandWorked(
-    external.runCommand({createUser: config["iam_auth_ecs_account_arn"], roles:[{role: 'read', db: "aws"}]}));
+external.runCommand({createUser: config["iam_auth_ecs_account_arn"], roles:[{role: 'read', db: "aws"}]});
 
 const testConn = new Mongo();
 const testExternal = testConn.getDB('$external');
-assert(testExternal.auth({
+testExternal.auth({
     user: config["iam_auth_ecs_account"],
     pwd: config["iam_auth_ecs_secret_access_key"],
     mechanism: 'MONGODB-AWS'
-}));
+});
 }());

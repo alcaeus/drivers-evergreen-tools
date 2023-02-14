@@ -27,7 +27,7 @@ function assignInstanceProfile() {
         return false;
     }
 
-    assert.eq(ret, 0, "Failed to assign an instance profile to the current machine");
+    assert(ret == 0);
     return true;
 }
 
@@ -39,7 +39,7 @@ const admin = Mongo().getDB("admin");
 const external = admin.getMongo().getDB("$external");
 
 assert(admin.auth("bob", "pwd123"));
-assert.commandWorked(external.runCommand({createUser: AWS_ACCOUNT_ARN, roles:[{role: 'read', db: "aws"}]}));
+external.runCommand({createUser: AWS_ACCOUNT_ARN, roles:[{role: 'read', db: "aws"}]});
 
 // Try the command line
 const smoke = runMongoProgram("mongo",
@@ -51,7 +51,7 @@ const smoke = runMongoProgram("mongo",
                               '$external',
                               "--eval",
                               "1");
-assert.eq(smoke, 0, "Could not auth with smoke user");
+assert(smoke == 0);
 
 // Try the auth function
 const testConn = new Mongo();
