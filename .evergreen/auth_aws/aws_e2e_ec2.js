@@ -21,19 +21,10 @@ function assignInstanceProfile() {
     const python_command = getPython3Binary() +
         ` -u lib/aws_assign_instance_profile.py --instance_profile_arn=${instanceProfileName}`;
 
-    const ret = runShellCmdWithEnv(python_command, env);
-    if (ret == 2) {
-        print("WARNING: Request limit exceeded for AWS API");
-        return false;
-    }
-
-    assert(ret == 0);
-    return true;
+    runShellCmdWithEnv(python_command, env);
 }
 
-if (!assignInstanceProfile()) {
-    return;
-}
+assignInstanceProfile();
 
 const admin = Mongo().getDB("admin");
 const external = admin.getMongo().getDB("$external");

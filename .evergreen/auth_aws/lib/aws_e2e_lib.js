@@ -22,11 +22,7 @@ function runWithEnv(args, env) {
 }
 
 function runShellCmdWithEnv(argStr, env) {
-    if (_isWindows()) {
-        return runWithEnv(['cmd.exe', '/c', argStr], env);
-    } else {
-        return runWithEnv(['/bin/sh', '-c', argStr], env);
-    }
+    child_process.execSync(argStr, {env});
 }
 
 function getPython3Binary() {

@@ -18,14 +18,7 @@ function unAssignInstanceProfile() {
     const python_command = getPython3Binary() +
         " -u lib/aws_unassign_instance_profile.py";
 
-    const ret = runShellCmdWithEnv(python_command, env);
-    if (ret == 2) {
-        print("WARNING: Request limit exceeded for AWS API");
-        return false;
-    }
-
-    assert(ret == 0);
-    return true;
+    runShellCmdWithEnv(python_command, env);
 }
 
 unAssignInstanceProfile();
@@ -44,9 +37,7 @@ function writeWebTokenFile() {
     const python_command = getPython3Binary() +
         " -u lib/aws_handle_oidc_creds.py token > /dev/null"
 
-    const ret = runShellCmdWithEnv(python_command, env);
-    assert(ret == 0);
-    return true;
+    runShellCmdWithEnv(python_command, env);
 }
 
 writeWebTokenFile();
@@ -63,8 +54,7 @@ function getWebIdentityCredentials() {
     const python_command = getPython3Binary() +
         ` -u lib/aws_assume_web_role.py > creds.json`;
 
-    const ret = runShellCmdWithEnv(python_command, env);
-    assert(ret == 0);
+    runShellCmdWithEnv(python_command, env);
 
     const result = cat("creds.json");
     try {
