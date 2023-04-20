@@ -19,12 +19,19 @@ function getAssumeCredentials() {
 
 const credentials = getAssumeCredentials();
 const testExternal = Mongo().getDB('$external');
-const authResult = testExternal.auth({
-    user: credentials["AccessKeyId"],
-    pwd: credentials["SecretAccessKey"],
-    awsIamSessionToken: credentials["SessionToken"],
-    mechanism: 'MONGODB-AWS'
-});
+
+// const uri = new URL(testExternal.getMongo().getURI());
+// uri.username = credentials.AccessKeyId;
+// uri.password = credentials.SecretAccessKey;
+// uri.searchParams.set('authSource', '$external');
+// uri.searchParams.set('mechanism', 'MONGODB-AWS');
+// uri.searchParams.set('authMechanismProperties', `AWS_SESSION_TOKEN:${credentials.SessionToken}`);
+
+// const uri = db.getMongo().getURI() + 'authSource=$external&authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:' + credentials.SessionToken;
+
+const uri = 'mongodb://127.0.0.1:27017/?authSource=$external&authMechanism=MONGODB-AWS&authMechanismProperties=AWS_SESSION_TOKEN:' + credentials.SessionToken;
+const authResult = connect(uri).runCommand({ ping: 1 }).ok;
+
 assert(authResult);
 jsTestLog('Auth successful: ' + authResult);
 }());
